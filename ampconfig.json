@@ -1,0 +1,19 @@
+{
+  "dataServiceGeneratorVersion": "0.11.0",
+  "appInfo": {
+    "name": "Business",
+    "description": "THis business website is made from Amplication by TUSHAR BOBDE.\nThank You..!!!",
+    "version": "3g3fg5dm",
+    "id": "cky9nqs2z138227401s6rb1p7p6y",
+    "url": "https://app.amplication.com/cky9nqs2z138227401s6rb1p7p6y",
+    "settings": {
+      "dbHost": "localhost",
+      "dbName": "postgres",
+      "dbPassword": "1234",
+      "dbPort": 5433,
+      "dbUser": "postgres",
+      "appId": "cky9nqs2z138227401s6rb1p7p6y",
+      "authProvider": "Jwt"
+    }
+  }
+}
