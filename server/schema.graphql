@@ -17,14 +17,14 @@ type EmployeeDetail {
   empName: String!
   empSalary: Float!
   id: String!
-  manager: String
+  projectManager: ProjectManager
   updatedAt: DateTime!
 }
 
 input EmployeeDetailCreateInput {
   empName: String!
   empSalary: Float!
-  manager: String
+  projectManager: ProjectManagerWhereUniqueInput
 }
 
 input EmployeeDetailOrderByInput {
@@ -32,21 +32,21 @@ input EmployeeDetailOrderByInput {
   empName: SortOrder
   empSalary: SortOrder
   id: SortOrder
-  manager: SortOrder
+  projectManagerId: SortOrder
   updatedAt: SortOrder
 }
 
 input EmployeeDetailUpdateInput {
   empName: String
   empSalary: Float
-  manager: String
+  projectManager: ProjectManagerWhereUniqueInput
 }
 
 input EmployeeDetailWhereInput {
   empName: StringFilter
   empSalary: IntFilter
   id: StringFilter
-  manager: StringNullableFilter
+  projectManager: ProjectManagerWhereUniqueInput
 }
 
 input EmployeeDetailWhereUniqueInput {
@@ -83,6 +83,7 @@ type Mutation {
 
 type ProjectManager {
   createdAt: DateTime!
+  employeeDetails(orderBy: EmployeeDetailOrderByInput, skip: Float, take: Float, where: EmployeeDetailWhereInput): [EmployeeDetail!]!
   id: String!
   pmName: String!
   pmSalary: String
