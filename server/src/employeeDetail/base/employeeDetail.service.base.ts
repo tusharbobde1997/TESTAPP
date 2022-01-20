@@ -1,5 +1,5 @@
 import { PrismaService } from "nestjs-prisma";
-import { Prisma, EmployeeDetail } from "@prisma/client";
+import { Prisma, EmployeeDetail, ProjectManager } from "@prisma/client";
 
 export class EmployeeDetailServiceBase {
   constructor(protected readonly prisma: PrismaService) {}
@@ -34,5 +34,13 @@ export class EmployeeDetailServiceBase {
     args: Prisma.SelectSubset<T, Prisma.EmployeeDetailDeleteArgs>
   ): Promise<EmployeeDetail> {
     return this.prisma.employeeDetail.delete(args);
+  }
+
+  async getProjectManager(parentId: string): Promise<ProjectManager | null> {
+    return this.prisma.employeeDetail
+      .findUnique({
+        where: { id: parentId },
+      })
+      .projectManager();
   }
 }

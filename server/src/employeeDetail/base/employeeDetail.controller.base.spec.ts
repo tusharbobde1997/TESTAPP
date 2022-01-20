@@ -15,7 +15,6 @@ const CREATE_INPUT = {
   empName: "exampleEmpName",
   empSalary: 42,
   id: "exampleId",
-  manager: "exampleManager",
   updatedAt: new Date(),
 };
 const CREATE_RESULT = {
@@ -23,7 +22,6 @@ const CREATE_RESULT = {
   empName: "exampleEmpName",
   empSalary: 42,
   id: "exampleId",
-  manager: "exampleManager",
   updatedAt: new Date(),
 };
 const FIND_MANY_RESULT = [
@@ -32,7 +30,6 @@ const FIND_MANY_RESULT = [
     empName: "exampleEmpName",
     empSalary: 42,
     id: "exampleId",
-    manager: "exampleManager",
     updatedAt: new Date(),
   },
 ];
@@ -41,7 +38,6 @@ const FIND_ONE_RESULT = {
   empName: "exampleEmpName",
   empSalary: 42,
   id: "exampleId",
-  manager: "exampleManager",
   updatedAt: new Date(),
 };
 

@@ -2,9 +2,9 @@ import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
 import { StringFilter } from "../../util/StringFilter";
 import { Type } from "class-transformer";
-import { IsOptional } from "class-validator";
+import { IsOptional, ValidateNested } from "class-validator";
 import { IntFilter } from "../../util/IntFilter";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { ProjectManagerWhereUniqueInput } from "../../projectManager/base/ProjectManagerWhereUniqueInput";
 @InputType()
 class EmployeeDetailWhereInput {
   @ApiProperty({
@@ -42,13 +42,14 @@ class EmployeeDetailWhereInput {
 
   @ApiProperty({
     required: false,
-    type: StringNullableFilter,
+    type: () => ProjectManagerWhereUniqueInput,
   })
-  @Type(() => StringNullableFilter)
+  @ValidateNested()
+  @Type(() => ProjectManagerWhereUniqueInput)
   @IsOptional()
-  @Field(() => StringNullableFilter, {
+  @Field(() => ProjectManagerWhereUniqueInput, {
     nullable: true,
   })
-  manager?: StringNullableFilter;
+  projectManager?: ProjectManagerWhereUniqueInput;
 }
 export { EmployeeDetailWhereInput };

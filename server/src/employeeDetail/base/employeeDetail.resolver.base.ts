@@ -14,6 +14,7 @@ import { DeleteEmployeeDetailArgs } from "./DeleteEmployeeDetailArgs";
 import { EmployeeDetailFindManyArgs } from "./EmployeeDetailFindManyArgs";
 import { EmployeeDetailFindUniqueArgs } from "./EmployeeDetailFindUniqueArgs";
 import { EmployeeDetail } from "./EmployeeDetail";
+import { ProjectManager } from "../../projectManager/base/ProjectManager";
 import { EmployeeDetailService } from "../employeeDetail.service";
 
 @graphql.Resolver(() => EmployeeDetail)
@@ -120,7 +121,15 @@ export class EmployeeDetailResolverBase {
     // @ts-ignore
     return await this.service.create({
       ...args,
-      data: args.data,
+      data: {
+        ...args.data,
+
+        projectManager: args.data.projectManager
+          ? {
+              connect: args.data.projectManager,
+            }
+          : undefined,
+      },
     });
   }
 
@@ -159,7 +168,15 @@ export class EmployeeDetailResolverBase {
       // @ts-ignore
       return await this.service.update({
         ...args,
-        data: args.data,
+        data: {
+          ...args.data,
+
+          projectManager: args.data.projectManager
+            ? {
+                connect: args.data.projectManager,
+              }
+            : undefined,
+        },
       });
     } catch (error) {
       if (isRecordNotFoundError(error)) {
@@ -191,5 +208,29 @@ export class EmployeeDetailResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => ProjectManager, { nullable: true })
+  @nestAccessControl.UseRoles({
+    resource: "EmployeeDetail",
+    action: "read",
+    possession: "any",
+  })
+  async projectManager(
+    @graphql.Parent() parent: EmployeeDetail,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<ProjectManager | null> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "ProjectManager",
+    });
+    const result = await this.service.getProjectManager(parent.id);
+
+    if (!result) {
+      return null;
+    }
+    return permission.filter(result);
   }
 }

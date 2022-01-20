@@ -5,6 +5,6 @@ export type EmployeeDetailOrderByInput = {
   empName?: SortOrder;
   empSalary?: SortOrder;
   id?: SortOrder;
-  manager?: SortOrder;
+  projectManagerId?: SortOrder;
   updatedAt?: SortOrder;
 };

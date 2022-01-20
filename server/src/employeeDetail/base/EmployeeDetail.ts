@@ -1,7 +1,14 @@
 import { ObjectType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsDate, IsString, IsInt, IsOptional } from "class-validator";
+import {
+  IsDate,
+  IsString,
+  IsInt,
+  ValidateNested,
+  IsOptional,
+} from "class-validator";
 import { Type } from "class-transformer";
+import { ProjectManager } from "../../projectManager/base/ProjectManager";
 @ObjectType()
 class EmployeeDetail {
   @ApiProperty({
@@ -38,14 +45,12 @@ class EmployeeDetail {
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: () => ProjectManager,
   })
-  @IsString()
+  @ValidateNested()
+  @Type(() => ProjectManager)
   @IsOptional()
-  @Field(() => String, {
-    nullable: true,
-  })
-  manager!: string | null;
+  projectManager?: ProjectManager | null;
 
   @ApiProperty({
     required: true,

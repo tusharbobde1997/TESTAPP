@@ -5,7 +5,9 @@ import {
   ShowProps,
   DateField,
   TextField,
+  ReferenceField,
 } from "react-admin";
+import { PROJECTMANAGER_TITLE_FIELD } from "../projectManager/ProjectManagerTitle";
 
 export const EmployeeDetailShow = (props: ShowProps): React.ReactElement => {
   return (
@@ -15,7 +17,13 @@ export const EmployeeDetailShow = (props: ShowProps): React.ReactElement => {
         <TextField label="EmpName" source="empName" />
         <TextField label="EmpSalary" source="empSalary" />
         <TextField label="ID" source="id" />
-        <TextField label="Manager" source="manager" />
+        <ReferenceField
+          label="Project Manager"
+          source="projectmanager.id"
+          reference="ProjectManager"
+        >
+          <TextField source={PROJECTMANAGER_TITLE_FIELD} />
+        </ReferenceField>
         <DateField source="updatedAt" label="Updated At" />
       </SimpleShowLayout>
     </Show>
