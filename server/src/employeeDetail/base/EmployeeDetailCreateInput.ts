@@ -1,6 +1,8 @@
 import { InputType, Field } from "@nestjs/graphql";
 import { ApiProperty } from "@nestjs/swagger";
-import { IsString, IsInt, IsOptional } from "class-validator";
+import { IsString, IsInt, ValidateNested, IsOptional } from "class-validator";
+import { ProjectManagerWhereUniqueInput } from "../../projectManager/base/ProjectManagerWhereUniqueInput";
+import { Type } from "class-transformer";
 @InputType()
 class EmployeeDetailCreateInput {
   @ApiProperty({
@@ -21,13 +23,14 @@ class EmployeeDetailCreateInput {
 
   @ApiProperty({
     required: false,
-    type: String,
+    type: () => ProjectManagerWhereUniqueInput,
   })
-  @IsString()
+  @ValidateNested()
+  @Type(() => ProjectManagerWhereUniqueInput)
   @IsOptional()
-  @Field(() => String, {
+  @Field(() => ProjectManagerWhereUniqueInput, {
     nullable: true,
   })
-  manager?: string | null;
+  projectManager?: ProjectManagerWhereUniqueInput | null;
 }
 export { EmployeeDetailCreateInput };

@@ -50,7 +50,7 @@ class EmployeeDetailOrderByInput {
   @Field(() => SortOrder, {
     nullable: true,
   })
-  manager?: SortOrder;
+  projectManagerId?: SortOrder;
 
   @ApiProperty({
     required: false,

@@ -1,10 +1,10 @@
 import { StringFilter } from "../../util/StringFilter";
 import { IntFilter } from "../../util/IntFilter";
-import { StringNullableFilter } from "../../util/StringNullableFilter";
+import { ProjectManagerWhereUniqueInput } from "../projectManager/ProjectManagerWhereUniqueInput";
 
 export type EmployeeDetailWhereInput = {
   empName?: StringFilter;
   empSalary?: IntFilter;
   id?: StringFilter;
-  manager?: StringNullableFilter;
+  projectManager?: ProjectManagerWhereUniqueInput;
 };

@@ -19,18 +19,20 @@ model User {
 }
 
 model EmployeeDetail {
-  createdAt DateTime @default(now())
-  empName   String
-  empSalary Int
-  id        String   @id @default(cuid())
-  manager   String?
-  updatedAt DateTime @updatedAt
+  createdAt        DateTime        @default(now())
+  empName          String
+  empSalary        Int
+  id               String          @id @default(cuid())
+  projectManager   ProjectManager? @relation(fields: [projectManagerId], references: [id])
+  projectManagerId String?
+  updatedAt        DateTime        @updatedAt
 }
 
 model ProjectManager {
-  createdAt DateTime @default(now())
-  id        String   @id @default(cuid())
-  pmName    String
-  pmSalary  String?
-  updatedAt DateTime @updatedAt
+  createdAt       DateTime         @default(now())
+  employeeDetails EmployeeDetail[]
+  id              String           @id @default(cuid())
+  pmName          String
+  pmSalary        String?
+  updatedAt       DateTime         @updatedAt
 }

@@ -14,6 +14,8 @@ import { DeleteProjectManagerArgs } from "./DeleteProjectManagerArgs";
 import { ProjectManagerFindManyArgs } from "./ProjectManagerFindManyArgs";
 import { ProjectManagerFindUniqueArgs } from "./ProjectManagerFindUniqueArgs";
 import { ProjectManager } from "./ProjectManager";
+import { EmployeeDetailFindManyArgs } from "../../employeeDetail/base/EmployeeDetailFindManyArgs";
+import { EmployeeDetail } from "../../employeeDetail/base/EmployeeDetail";
 import { ProjectManagerService } from "../projectManager.service";
 
 @graphql.Resolver(() => ProjectManager)
@@ -191,5 +193,31 @@ export class ProjectManagerResolverBase {
       }
       throw error;
     }
+  }
+
+  @graphql.ResolveField(() => [EmployeeDetail])
+  @nestAccessControl.UseRoles({
+    resource: "ProjectManager",
+    action: "read",
+    possession: "any",
+  })
+  async employeeDetails(
+    @graphql.Parent() parent: ProjectManager,
+    @graphql.Args() args: EmployeeDetailFindManyArgs,
+    @gqlUserRoles.UserRoles() userRoles: string[]
+  ): Promise<EmployeeDetail[]> {
+    const permission = this.rolesBuilder.permission({
+      role: userRoles,
+      action: "read",
+      possession: "any",
+      resource: "EmployeeDetail",
+    });
+    const results = await this.service.findEmployeeDetails(parent.id, args);
+
+    if (!results) {
+      return [];
+    }
+
+    return results.map((result) => permission.filter(result));
   }
 }

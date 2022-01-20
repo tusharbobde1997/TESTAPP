@@ -58,13 +58,27 @@ export class EmployeeDetailControllerBase {
       );
     }
     return await this.service.create({
-      data: data,
+      data: {
+        ...data,
+
+        projectManager: data.projectManager
+          ? {
+              connect: data.projectManager,
+            }
+          : undefined,
+      },
       select: {
         createdAt: true,
         empName: true,
         empSalary: true,
         id: true,
-        manager: true,
+
+        projectManager: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -107,7 +121,13 @@ export class EmployeeDetailControllerBase {
         empName: true,
         empSalary: true,
         id: true,
-        manager: true,
+
+        projectManager: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -145,7 +165,13 @@ export class EmployeeDetailControllerBase {
         empName: true,
         empSalary: true,
         id: true,
-        manager: true,
+
+        projectManager: {
+          select: {
+            id: true,
+          },
+        },
+
         updatedAt: true,
       },
     });
@@ -198,13 +224,27 @@ export class EmployeeDetailControllerBase {
     try {
       return await this.service.update({
         where: params,
-        data: data,
+        data: {
+          ...data,
+
+          projectManager: data.projectManager
+            ? {
+                connect: data.projectManager,
+              }
+            : undefined,
+        },
         select: {
           createdAt: true,
           empName: true,
           empSalary: true,
           id: true,
-          manager: true,
+
+          projectManager: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
@@ -243,7 +283,13 @@ export class EmployeeDetailControllerBase {
           empName: true,
           empSalary: true,
           id: true,
-          manager: true,
+
+          projectManager: {
+            select: {
+              id: true,
+            },
+          },
+
           updatedAt: true,
         },
       });
